@@ -3,6 +3,7 @@ Test
 http://www.sa-robotics.com/it/hops/
 
 HOPS Mission
+
 Scopo del progetto è far cadere una sonda da una altezza di 100 metri ed aprire il paracadute automaticamente quando la sonda si trova a 50 metri da terra.
 
 
