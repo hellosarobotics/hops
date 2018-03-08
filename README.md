@@ -8,7 +8,7 @@ Scopo del progetto è far cadere una sonda da una altezza di 100 metri ed aprire
 
 Scherzosamente abbiamo scelto come nome del progetto “HOPS” che significa “Hopefully opening parachute systems”, che in italiano è tradotto in “Siamo fiduciosi che il paracadute si apra”.
 
-Overview
+Overviewd
 Come piattaforma hardware scegliamo Raspberry Pi equipaggiata con Raspbian Jessie Lite. Il software che girerà sulla piattaforma sarà sviluppato in java.
 
 Hardware
