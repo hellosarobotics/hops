@@ -1,5 +1,8 @@
 package com.sarobotics.hops;
 
+import com.sarobotics.actions.Action;
+import com.sarobotics.actions.ActionHW;
+import com.sarobotics.actions.ActionSimulator;
 import com.sarobotics.bmp280.BMP280HW;
 import com.sarobotics.bmp280.BMP280;
 import com.sarobotics.bmp280.BMP280Simulator;
@@ -11,16 +14,19 @@ public class Main {
 
     if (args.length >= 2) {
       BMP280 bmp280;
+      Action action;
       int burstAltitude, openParachuteAltitude;
 
       if (args.length > 0 && args[0].equalsIgnoreCase("sim")) {
-        bmp280 = new BMP280Simulator();
         burstAltitude = Integer.parseInt(args[1]);
         openParachuteAltitude = Integer.parseInt(args[2]);
+        bmp280 = new BMP280Simulator();
+        action = new ActionSimulator();
       } else {
-        bmp280 = new BMP280HW();
         burstAltitude = Integer.parseInt(args[0]);
         openParachuteAltitude = Integer.parseInt(args[1]);
+        bmp280 = new BMP280HW();
+        action = new ActionHW();
       }
 
       int actualAltitude = (int) bmp280.getAltitudeInMeter();
@@ -39,12 +45,14 @@ public class Main {
             if (sa.canBurst(ac.getActualAltitude()) && sa.getDeveAncoraScoppiare()) {
               System.out.println("BURST POINT");
               sa.setDeveAncoraScoppiare(false);
+              action.sganciaSonda();
             }
           } else if (ac.isGoingDown()) {
             System.out.println(counter++ + "\t DOWN\t\t" + ac.print());
             if (sa.canOpenParachute(ac.getActualAltitude())) {
               System.out.println("OPEN PARACHUTE");
               sa.setIlParacaduteSiDeveAncoraAprire(false);
+              action.apriParacadute();
             }
           } else {
             //Qui il sistema è stazionario

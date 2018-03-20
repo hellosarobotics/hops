@@ -38,7 +38,9 @@ public class SondeActions {
 
 
   public boolean canOpenParachute(int actualAltitude) {
-    return this.openParachuteAltitude > actualAltitude && ilPalloneEScoppiato() && this.ilParacaduteSiDeveAncoraAprire;
+    return this.openParachuteAltitude > actualAltitude &&
+            ilPalloneEScoppiato() &&
+            this.ilParacaduteSiDeveAncoraAprire;
   }
 
   private boolean ilPalloneEScoppiato() {

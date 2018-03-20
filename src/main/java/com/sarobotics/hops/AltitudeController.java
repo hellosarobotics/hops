@@ -4,12 +4,12 @@ public class AltitudeController {
 
   private int actualAltitude;
   private int previousAltitude;
-  private int firstAltitudeAtPowerOn;
+  //private int firstAltitudeAtPowerOn;
 
   public AltitudeController( int _actualAltitude ) {
     this.actualAltitude = _actualAltitude;
     this.previousAltitude = 0;
-    this.firstAltitudeAtPowerOn = 0;
+    //this.firstAltitudeAtPowerOn = 0;
   }
 
   public int getActualAltitude() {
