@@ -1,5 +1,7 @@
 package com.sarobotics.hops;
 
+import com.sarobotics.utils.InvalidOpenParachuteAltitude;
+
 /**
  * Questa classe raccoglie le azioni che la sonda può effettuare,
  * Sganciarsi,
@@ -15,11 +17,19 @@ public class SondeActions {
 
   public SondeActions(){  }
 
-  public SondeActions(int _burstAltitude, int _openParachuteAltitude) {
-    this.burstAltitude = _burstAltitude;
-    this.openParachuteAltitude = _openParachuteAltitude;
-    this.deveAncoraScoppiare=true;
-    this.ilParacaduteSiDeveAncoraAprire=true;
+  public SondeActions(int _burstAltitude, int _openParachuteAltitude) throws InvalidOpenParachuteAltitude {
+    /**
+     * _burstAltitude > _openParachuteAltitude
+     */
+    if(_burstAltitude > _openParachuteAltitude) {
+      this.burstAltitude = _burstAltitude;
+      this.openParachuteAltitude = _openParachuteAltitude;
+      this.deveAncoraScoppiare = true;
+      this.ilParacaduteSiDeveAncoraAprire = true;
+    }else {
+      //Throws exceptions
+      throw new InvalidOpenParachuteAltitude("Burst Altitude: "+_burstAltitude +" < Open parachute altitude: " + _openParachuteAltitude);
+    }
   }
 
   public boolean canBurst(int actualAltitude ){

@@ -1,8 +1,12 @@
 import com.sarobotics.hops.SondeActions;
+import com.sarobotics.utils.InvalidOpenParachuteAltitude;
 import org.junit.Test;
 import static  org.junit.Assert.*;
 
 public class SondeActionTest {
+
+  public SondeActionTest() throws InvalidOpenParachuteAltitude {
+  }
 
   private SondeActions sa = new SondeActions(100, 70);
 

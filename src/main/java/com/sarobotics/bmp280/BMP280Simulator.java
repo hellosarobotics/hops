@@ -1,6 +1,6 @@
 package com.sarobotics.bmp280;
 
-public class BMP280Simulator  implements BMP280Interface{
+public class BMP280Simulator  implements BMP280 {
 
   double currentAltitudeSimulated;
 
