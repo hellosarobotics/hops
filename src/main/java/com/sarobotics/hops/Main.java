@@ -6,9 +6,9 @@ import com.sarobotics.bmp280.BMP280Simulator;
 
 public class Main {
 
-
-
   public static void main(String... args) throws Exception {
+
+
 
     BMP280Interface bmp280;
 
@@ -44,7 +44,7 @@ public class Main {
           }
         } else {
           //Qui il sistema è stazionario
-          System.out.println( "STAZIONARIO: " + ac.print() );
+          //System.out.println( "STAZIONARIO: " + ac.print() );
         }
         Thread.sleep(10);
       }
