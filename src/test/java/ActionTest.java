@@ -13,13 +13,13 @@ public class ActionTest {
 
   @Test
   public void testSgancioSondaFalse(){
-    boolean sgancia = sa.canBurst(100);
+    boolean sgancia = sa.canDetach(100);
     assertEquals(false,sgancia);
   }
 
   @Test
   public void testSgancioSondaTrue(){
-    boolean sgancia = sa.canBurst(101);
+    boolean sgancia = sa.canDetach(101);
     assertEquals(true,sgancia);
   }
 

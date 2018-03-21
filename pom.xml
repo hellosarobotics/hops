@@ -6,7 +6,7 @@
 
     <groupId>com.sarobotics</groupId>
     <artifactId>hops</artifactId>
-    <version>0.0.1</version>
+    <version>0.1.0</version>
 
     <repositories>
         <repository>
@@ -32,6 +32,14 @@
             <artifactId>pi4j-core</artifactId>
             <version>1.2-SNAPSHOT</version>
         </dependency>
+
+        <!--<dependency>-->
+            <!--<groupId>com.pi4j</groupId>-->
+            <!--<artifactId>pi4j-core</artifactId>-->
+            <!--<version>1.1</version>-->
+        <!--</dependency>-->
+
+
     </dependencies>
 
 

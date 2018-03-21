@@ -5,37 +5,37 @@ import com.sarobotics.utils.InvalidOpenParachuteAltitude;
 
 public abstract class Action {
 
-  private int burstAltitude;
+  private int detachAltitude;
   private int openParachuteAltitude;
   private boolean deveAncoraScoppiare;
   private boolean ilParacaduteSiDeveAncoraAprire;
 
-  public Action(int _burstAltitude, int _openParachuteAltitude) throws InvalidOpenParachuteAltitude {
-    /**
-     * _burstAltitude > _openParachuteAltitude
+  public Action(int _detachAltitude, int _openParachuteAltitude) throws InvalidOpenParachuteAltitude {
+    /*
+     * _detachAltitude > _openParachuteAltitude
      */
-    if(_burstAltitude > _openParachuteAltitude) {
-      this.burstAltitude = _burstAltitude;
+    if( _detachAltitude > _openParachuteAltitude ) {
+      this.detachAltitude = _detachAltitude;
       this.openParachuteAltitude = _openParachuteAltitude;
       this.deveAncoraScoppiare = true;
       this.ilParacaduteSiDeveAncoraAprire = true;
     }else {
       //Throws exceptions
-      throw new InvalidOpenParachuteAltitude("Burst Altitude: "+_burstAltitude +" < Open parachute altitude: " + _openParachuteAltitude);
+      throw new InvalidOpenParachuteAltitude("Detach Altitude: "+_detachAltitude +" < Open parachute altitude: " + _openParachuteAltitude);
     }
   }
 
-  public boolean canBurst(int actualAltitude ){
-    return this.burstAltitude<actualAltitude;
+  public boolean canDetach(int actualAltitude ){
+    return this.detachAltitude < actualAltitude;
   }
 
   public boolean canOpenParachute(int actualAltitude) {
     return this.openParachuteAltitude > actualAltitude &&
-            ilPalloneEScoppiato() &&
+            sondaDetached() &&
             this.ilParacaduteSiDeveAncoraAprire;
   }
 
-  private boolean ilPalloneEScoppiato() {
+  private boolean sondaDetached() {
     return !this.deveAncoraScoppiare;
   }
 
@@ -43,9 +43,9 @@ public abstract class Action {
     return this.deveAncoraScoppiare;
   }
 
-  public boolean getIlParacaduteSiDeveAncoraAprire() {
-    return this.ilParacaduteSiDeveAncoraAprire;
-  }
+//  public boolean getIlParacaduteSiDeveAncoraAprire() {
+//    return this.ilParacaduteSiDeveAncoraAprire;
+//  }
 
   public void setDeveAncoraScoppiare(boolean deveAncoraScoppiare) {
     this.deveAncoraScoppiare = deveAncoraScoppiare;

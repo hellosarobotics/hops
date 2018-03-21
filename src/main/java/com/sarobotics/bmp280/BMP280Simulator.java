@@ -5,10 +5,18 @@ public class BMP280Simulator  implements BMP280 {
   double currentAltitudeSimulated;
 
   public  BMP280Simulator() {
+    currentAltitudeSimulated=0.0;
     new Thread(){
       @Override
       public void run() {
-        while(true) {
+        boolean running = true;
+        try {
+          //Attendiamo 10 secondi prima di far partire la simulazione del bmp280 perché l'inizializzazione del main impiega qualche secondo.
+          Thread.sleep(10000);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+        while(running) {
           for (int i = 0; i < 150; i++) {
             //ac.settaAltitudineAttuale(i);
             currentAltitudeSimulated = (double)i;
@@ -27,6 +35,7 @@ public class BMP280Simulator  implements BMP280 {
               e.printStackTrace();
             }
           }
+          running=false;
         }
       }
     }.start();

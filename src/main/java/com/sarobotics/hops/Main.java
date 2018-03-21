@@ -2,7 +2,6 @@ package com.sarobotics.hops;
 
 import com.sarobotics.actions.Action;
 import com.sarobotics.actions.ActionHW;
-import com.sarobotics.actions.ActionSimulator;
 import com.sarobotics.bmp280.BMP280HW;
 import com.sarobotics.bmp280.BMP280;
 import com.sarobotics.bmp280.BMP280Simulator;
@@ -17,12 +16,13 @@ public class Main {
       Action action;
       int actualAltitude, burstAltitude, openParachuteAltitude;
 
-      if (args.length > 0 && args[0].equalsIgnoreCase("sim")) {
+      if ( args[0].equalsIgnoreCase("sim") ) {
         burstAltitude = Integer.parseInt(args[1]);
         openParachuteAltitude = Integer.parseInt(args[2]);
         bmp280 = new BMP280Simulator();
         actualAltitude = (int) bmp280.getAltitudeInMeter();
-        action = new ActionSimulator(actualAltitude + burstAltitude, actualAltitude + openParachuteAltitude);
+        //action = new ActionSimulator(actualAltitude + burstAltitude, actualAltitude + openParachuteAltitude);
+        action = new ActionHW(actualAltitude + burstAltitude, actualAltitude + openParachuteAltitude);
       } else {
         burstAltitude = Integer.parseInt(args[0]);
         openParachuteAltitude = Integer.parseInt(args[1]);
@@ -41,7 +41,7 @@ public class Main {
           ac.settaAltitudineAttuale(altit);
           if (ac.isGoingUp()) {
             System.out.println(counter++ + "\t  UP\t\t" + ac.print());
-            if (action.canBurst(ac.getActualAltitude()) && action.getDeveAncoraScoppiare()) {
+            if (action.canDetach(ac.getActualAltitude()) && action.getDeveAncoraScoppiare()) {
               action.setDeveAncoraScoppiare(false);
               action.sganciaSonda();
             }
@@ -51,10 +51,12 @@ public class Main {
               action.setIlParacaduteSiDeveAncoraAprire(false);
               action.apriParacadute();
             }
-          } else {
-            //Qui il sistema è stazionario
-            //System.out.println( "STAZIONARIO: " + ac.print() );
           }
+
+//          else {
+//            //Qui il sistema è stazionario
+//            //System.out.println( "STAZIONARIO: " + ac.print() );
+//          }
           Thread.sleep(10);
         }
       }
