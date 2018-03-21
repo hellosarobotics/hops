@@ -1,14 +1,19 @@
 package com.sarobotics.actions;
 
-public class ActionSimulator implements Action {
+import com.sarobotics.utils.InvalidOpenParachuteAltitude;
 
-  
+public class ActionSimulator extends Action {
+
+
+  public ActionSimulator(int _burstAltitude, int _openParachuteAltitude) throws InvalidOpenParachuteAltitude {
+    super(_burstAltitude, _openParachuteAltitude);
+  }
 
   public void sganciaSonda() {
-
+    System.out.println("DETACH");
   }
 
   public void apriParacadute() {
-
+    System.out.println("OPEN PARACHUTE");
   }
 }

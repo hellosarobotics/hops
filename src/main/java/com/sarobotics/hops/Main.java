@@ -15,24 +15,23 @@ public class Main {
     if (args.length >= 2) {
       BMP280 bmp280;
       Action action;
-      int burstAltitude, openParachuteAltitude;
+      int actualAltitude, burstAltitude, openParachuteAltitude;
 
       if (args.length > 0 && args[0].equalsIgnoreCase("sim")) {
         burstAltitude = Integer.parseInt(args[1]);
         openParachuteAltitude = Integer.parseInt(args[2]);
         bmp280 = new BMP280Simulator();
-        action = new ActionSimulator();
+        actualAltitude = (int) bmp280.getAltitudeInMeter();
+        action = new ActionSimulator(actualAltitude + burstAltitude, actualAltitude + openParachuteAltitude);
       } else {
         burstAltitude = Integer.parseInt(args[0]);
         openParachuteAltitude = Integer.parseInt(args[1]);
         bmp280 = new BMP280HW();
-        action = new ActionHW();
+        actualAltitude = (int) bmp280.getAltitudeInMeter();
+        action = new ActionHW(actualAltitude + burstAltitude, actualAltitude + openParachuteAltitude);
       }
 
-      int actualAltitude = (int) bmp280.getAltitudeInMeter();
-
       final AltitudeController ac = new AltitudeController(actualAltitude);
-      SondeActions sa = new SondeActions(actualAltitude + burstAltitude, actualAltitude + openParachuteAltitude);
 
       int counter = 1;
 
@@ -42,16 +41,14 @@ public class Main {
           ac.settaAltitudineAttuale(altit);
           if (ac.isGoingUp()) {
             System.out.println(counter++ + "\t  UP\t\t" + ac.print());
-            if (sa.canBurst(ac.getActualAltitude()) && sa.getDeveAncoraScoppiare()) {
-              System.out.println("BURST POINT");
-              sa.setDeveAncoraScoppiare(false);
+            if (action.canBurst(ac.getActualAltitude()) && action.getDeveAncoraScoppiare()) {
+              action.setDeveAncoraScoppiare(false);
               action.sganciaSonda();
             }
           } else if (ac.isGoingDown()) {
             System.out.println(counter++ + "\t DOWN\t\t" + ac.print());
-            if (sa.canOpenParachute(ac.getActualAltitude())) {
-              System.out.println("OPEN PARACHUTE");
-              sa.setIlParacaduteSiDeveAncoraAprire(false);
+            if (action.canOpenParachute(ac.getActualAltitude())) {
+              action.setIlParacaduteSiDeveAncoraAprire(false);
               action.apriParacadute();
             }
           } else {
