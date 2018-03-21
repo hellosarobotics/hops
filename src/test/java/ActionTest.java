@@ -1,14 +1,15 @@
-import com.sarobotics.hops.SondeActions;
+import com.sarobotics.actions.Action;
+import com.sarobotics.actions.ActionSimulator;
 import com.sarobotics.utils.InvalidOpenParachuteAltitude;
 import org.junit.Test;
 import static  org.junit.Assert.*;
 
-public class SondeActionTest {
+public class ActionTest {
 
-  public SondeActionTest() throws InvalidOpenParachuteAltitude {
+  public ActionTest() throws InvalidOpenParachuteAltitude {
   }
 
-  private SondeActions sa = new SondeActions(100, 70);
+  private Action sa = new ActionSimulator(100, 70);
 
   @Test
   public void testSgancioSondaFalse(){
