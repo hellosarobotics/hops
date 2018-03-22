@@ -12,7 +12,7 @@ public class BMP280Simulator  implements BMP280 {
         boolean running = true;
         try {
           //Attendiamo 10 secondi prima di far partire la simulazione del bmp280 perché l'inizializzazione del main impiega qualche secondo.
-          Thread.sleep(10000);
+          Thread.sleep(5000);
         } catch (InterruptedException e) {
           e.printStackTrace();
         }
@@ -36,6 +36,7 @@ public class BMP280Simulator  implements BMP280 {
             }
           }
           running=false;
+          System.exit(0);
         }
       }
     }.start();
