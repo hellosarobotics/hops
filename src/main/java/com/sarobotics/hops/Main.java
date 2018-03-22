@@ -62,7 +62,7 @@ public class Main {
       }
 
     } else {
-      System.out.println("Inserire gli argomenti corretti: (sim 100 70) oppure solo (100 70)");
+      System.out.println("Manca qualcosa: esempio di esecuzione \njava -Dpi4j.linking=dynamic -jar hops.jar 100 70\njava -Dpi4j.linking=dynamic -jar hops.jar sim 100 70");
       System.exit(0);
     }
   }
