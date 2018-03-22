@@ -2,6 +2,7 @@ package com.sarobotics.hops;
 
 import com.sarobotics.actions.Action;
 import com.sarobotics.actions.ActionHW;
+import com.sarobotics.actions.ActionSimulator;
 import com.sarobotics.bmp280.BMP280HW;
 import com.sarobotics.bmp280.BMP280;
 import com.sarobotics.bmp280.BMP280Simulator;
@@ -21,8 +22,8 @@ public class Main {
         openParachuteAltitude = Integer.parseInt(args[2]);
         bmp280 = new BMP280Simulator();
         actualAltitude = (int) bmp280.getAltitudeInMeter();
-        //action = new ActionSimulator(actualAltitude + burstAltitude, actualAltitude + openParachuteAltitude);
-        action = new ActionHW(actualAltitude + burstAltitude, actualAltitude + openParachuteAltitude);
+        action = new ActionSimulator(actualAltitude + burstAltitude, actualAltitude + openParachuteAltitude);
+        //action = new ActionHW(actualAltitude + burstAltitude, actualAltitude + openParachuteAltitude);
       } else {
         burstAltitude = Integer.parseInt(args[0]);
         openParachuteAltitude = Integer.parseInt(args[1]);
@@ -52,17 +53,15 @@ public class Main {
               action.apriParacadute();
             }
           }
-
 //          else {
 //            //Qui il sistema è stazionario
-//            //System.out.println( "STAZIONARIO: " + ac.print() );
 //          }
           Thread.sleep(10);
         }
       }
 
     } else {
-      System.out.println("Manca qualcosa: esempio di esecuzione \njava -Dpi4j.linking=dynamic -jar hops.jar 100 70\njava -Dpi4j.linking=dynamic -jar hops.jar sim 100 70");
+      System.out.println("Manca qualcosa: esempio di esecuzione \njava -jar hops.jar 100 70\njava -jar hops.jar sim 100 7\nOppure se abbiamo problemi con la libreria pi4j aggiungere il seguente parametro alla VM: java -Dpi4j.linking=dynamic -jar.....blablabla ");
       System.exit(0);
     }
   }
