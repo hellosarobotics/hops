@@ -1,19 +1,21 @@
 package com.sarobotics.actions;
 
 import com.sarobotics.utils.InvalidOpenParachuteAltitude;
+import org.apache.log4j.Logger;
 
 public class ActionSimulator extends Action {
 
+  Logger log = Logger.getLogger(ActionHW.class);
 
-  public ActionSimulator(int _burstAltitude, int _openParachuteAltitude) throws InvalidOpenParachuteAltitude {
-    super(_burstAltitude, _openParachuteAltitude);
+  public ActionSimulator(int _detachAltitude, int _openParachuteAltitude) throws InvalidOpenParachuteAltitude {
+    super(_detachAltitude, _openParachuteAltitude);
   }
 
   public void sganciaSonda() {
-    System.out.println("DETACH");
+    log.info("********* DETACH *********");
   }
 
   public void apriParacadute() {
-    System.out.println("OPEN PARACHUTE");
+    log.info("********* OPEN PARACHUTE *********");
   }
 }

@@ -2,17 +2,19 @@ package com.sarobotics.actions;
 
 import com.pi4j.io.gpio.*;
 import com.sarobotics.utils.InvalidOpenParachuteAltitude;
+import org.apache.log4j.Logger;
 
 public class ActionHW extends Action {
 
+  Logger log = Logger.getLogger(ActionHW.class);
   // create gpio controller
   private GpioController gpio;
 
   // provision gpio pin #01 as an output pin and turn on
   private GpioPinDigitalOutput detach, deployParachute;
 
-  public ActionHW(int _burstAltitude, int _openParachuteAltitude) throws InvalidOpenParachuteAltitude {
-    super(_burstAltitude, _openParachuteAltitude);
+  public ActionHW(int _detachAltitude, int _openParachuteAltitude) throws InvalidOpenParachuteAltitude {
+    super(_detachAltitude, _openParachuteAltitude);
     // create gpio controller
     gpio = GpioFactory.getInstance();
     detach  =         gpio.provisionDigitalOutputPin(RaspiPin.GPIO_05, "detach", PinState.LOW);
@@ -24,15 +26,15 @@ public class ActionHW extends Action {
 
   public void sganciaSonda() {
     //sgancia
-    //Accendiamo la luce gialla
-    System.out.println("Detach");
+    //Accendiamo il primo led
+    log.info("********* DETACH *********");
     detach.high();
   }
 
   public void apriParacadute() {
     //apri
-    //Accendiamo la luce verde
-    System.out.println("Open parachute");
+    //Accendiamo il secondo led
+    log.info("********* OPEN PARACHUTE *********");
     deployParachute.high();
   }
 }
