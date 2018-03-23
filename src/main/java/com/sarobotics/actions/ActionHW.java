@@ -6,9 +6,7 @@ import org.apache.log4j.Logger;
 
 public class ActionHW extends Action {
 
-  Logger log = Logger.getLogger(ActionHW.class);
-  // create gpio controller
-  private GpioController gpio;
+  private final Logger log = Logger.getLogger(ActionHW.class);
 
   // provision gpio pin #01 as an output pin and turn on
   private GpioPinDigitalOutput detach, deployParachute;
@@ -16,7 +14,7 @@ public class ActionHW extends Action {
   public ActionHW(int _detachAltitude, int _openParachuteAltitude) throws InvalidOpenParachuteAltitude {
     super(_detachAltitude, _openParachuteAltitude);
     // create gpio controller
-    gpio = GpioFactory.getInstance();
+    GpioController gpio = GpioFactory.getInstance();
     detach  =         gpio.provisionDigitalOutputPin(RaspiPin.GPIO_05, "detach", PinState.LOW);
     deployParachute = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_06, "deploy", PinState.LOW);
     detach.setShutdownOptions(true, PinState.LOW);

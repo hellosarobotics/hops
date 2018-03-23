@@ -10,7 +10,7 @@ public abstract class Action {
   private boolean deveAncoraScoppiare;
   private boolean ilParacaduteSiDeveAncoraAprire;
 
-  public Action(int _detachAltitude, int _openParachuteAltitude) throws InvalidOpenParachuteAltitude {
+  Action(int _detachAltitude, int _openParachuteAltitude) throws InvalidOpenParachuteAltitude {
     /*
      * _detachAltitude > _openParachuteAltitude
      */

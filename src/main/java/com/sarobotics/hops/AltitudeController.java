@@ -16,22 +16,24 @@ public class AltitudeController {
     return actualAltitude;
   }
 
-  public void setActualAltitude(int actualAltitude) {
-    this.actualAltitude = actualAltitude;
-  }
+//  public void setActualAltitude(int actualAltitude) {
+//    this.actualAltitude = actualAltitude;
+//  }
+//
+//  public int getPreviousAltitude() {
+//    return previousAltitude;
+//  }
+//
+//  public void setPreviousAltitude(int previousAltitude) {
+//    this.previousAltitude = previousAltitude;
+//  }
 
-  public int getPreviousAltitude() {
-    return previousAltitude;
-  }
 
-  public void setPreviousAltitude(int previousAltitude) {
-    this.previousAltitude = previousAltitude;
-  }
-
-
-  public void settaAltitudineAttuale(int v) {
-    this.previousAltitude = this.actualAltitude;
-    this.actualAltitude = v;
+  public void settaAltitudineAttuale(int _actualAltitude) {
+    if (_actualAltitude != 3733) { //Hardcoded controllo su errore altitudine. Forse da imputare al BMP280HW un po' vecchiotto.
+      this.previousAltitude = this.actualAltitude;
+      this.actualAltitude = _actualAltitude;
+    }
   }
 
   public Boolean isGoingUp() {
@@ -41,7 +43,6 @@ public class AltitudeController {
   public Boolean isGoingDown() {
     return this.actualAltitude < this.previousAltitude;
   }
-
 
   public String print() {
     return "previous altitude: " + this.previousAltitude + " actual altitude:" +this.actualAltitude;

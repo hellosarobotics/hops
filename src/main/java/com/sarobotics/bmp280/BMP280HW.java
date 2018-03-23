@@ -3,17 +3,17 @@ package com.sarobotics.bmp280;
 import com.pi4j.io.i2c.I2CBus;
 import com.pi4j.io.i2c.I2CDevice;
 import com.pi4j.io.i2c.I2CFactory;
-import com.sarobotics.utils.FromHpaToMeter;
-
-import java.io.IOException;
 
 public class BMP280HW implements BMP280 {
 
   private I2CDevice device;
   private int dig_T1,dig_T2,dig_T3;
   private int dig_P1,dig_P2,dig_P3,dig_P4,dig_P5,dig_P6,dig_P7,dig_P8,dig_P9;
+  private final double seaLevel_hPa;
 
-  public BMP280HW() throws Exception {
+  public BMP280HW( double seaLevel_hPa ) throws Exception {
+
+    this.seaLevel_hPa = seaLevel_hPa;
 
     // Create I2C bus
     I2CBus bus = I2CFactory.getInstance(I2CBus.BUS_1);
@@ -89,149 +89,177 @@ public class BMP280HW implements BMP280 {
 
   }
 
-  public I2CDevice getDevice() {
+  private I2CDevice getDevice() {
     return device;
   }
 
-  public void setDevice(I2CDevice device) {
-    this.device = device;
-  }
+// --Commented out by Inspection START (3/23/18 11:10 PM):
+//  public void setDevice(I2CDevice device) {
+//    this.device = device;
+//  }
+// --Commented out by Inspection STOP (3/23/18 11:10 PM)
 
-  public int getDig_T1() {
+  private int getDig_T1() {
     return dig_T1;
   }
 
-  public void setDig_T1(int dig_T1) {
-    this.dig_T1 = dig_T1;
-  }
+// --Commented out by Inspection START (3/23/18 11:10 PM):
+//  public void setDig_T1(int dig_T1) {
+//    this.dig_T1 = dig_T1;
+//  }
+// --Commented out by Inspection STOP (3/23/18 11:10 PM)
 
-  public int getDig_T2() {
+  private int getDig_T2() {
     return dig_T2;
   }
 
-  public void setDig_T2(int dig_T2) {
-    this.dig_T2 = dig_T2;
-  }
+// --Commented out by Inspection START (3/23/18 11:10 PM):
+//  public void setDig_T2(int dig_T2) {
+//    this.dig_T2 = dig_T2;
+//  }
+// --Commented out by Inspection STOP (3/23/18 11:10 PM)
 
-  public int getDig_T3() {
+  private int getDig_T3() {
     return dig_T3;
   }
 
-  public void setDig_T3(int dig_T3) {
-    this.dig_T3 = dig_T3;
-  }
+// --Commented out by Inspection START (3/23/18 11:10 PM):
+//  public void setDig_T3(int dig_T3) {
+//    this.dig_T3 = dig_T3;
+//  }
+// --Commented out by Inspection STOP (3/23/18 11:10 PM)
 
-  public int getDig_P1() {
+  private int getDig_P1() {
     return dig_P1;
   }
 
-  public void setDig_P1(int dig_P1) {
-    this.dig_P1 = dig_P1;
-  }
+// --Commented out by Inspection START (3/23/18 11:10 PM):
+//  public void setDig_P1(int dig_P1) {
+//    this.dig_P1 = dig_P1;
+//  }
+// --Commented out by Inspection STOP (3/23/18 11:10 PM)
 
-  public int getDig_P2() {
+  private int getDig_P2() {
     return dig_P2;
   }
 
-  public void setDig_P2(int dig_P2) {
-    this.dig_P2 = dig_P2;
-  }
+// --Commented out by Inspection START (3/23/18 11:10 PM):
+//  public void setDig_P2(int dig_P2) {
+//    this.dig_P2 = dig_P2;
+//  }
+// --Commented out by Inspection STOP (3/23/18 11:10 PM)
 
-  public int getDig_P3() {
+  private int getDig_P3() {
     return dig_P3;
   }
 
-  public void setDig_P3(int dig_P3) {
-    this.dig_P3 = dig_P3;
-  }
+// --Commented out by Inspection START (3/23/18 11:10 PM):
+//  public void setDig_P3(int dig_P3) {
+//    this.dig_P3 = dig_P3;
+//  }
+// --Commented out by Inspection STOP (3/23/18 11:10 PM)
 
-  public int getDig_P4() {
+  private int getDig_P4() {
     return dig_P4;
   }
 
-  public void setDig_P4(int dig_P4) {
-    this.dig_P4 = dig_P4;
-  }
+// --Commented out by Inspection START (3/23/18 11:10 PM):
+//  public void setDig_P4(int dig_P4) {
+//    this.dig_P4 = dig_P4;
+//  }
+// --Commented out by Inspection STOP (3/23/18 11:10 PM)
 
-  public int getDig_P5() {
+  private int getDig_P5() {
     return dig_P5;
   }
 
-  public void setDig_P5(int dig_P5) {
-    this.dig_P5 = dig_P5;
-  }
+// --Commented out by Inspection START (3/23/18 11:10 PM):
+//  public void setDig_P5(int dig_P5) {
+//    this.dig_P5 = dig_P5;
+//  }
+// --Commented out by Inspection STOP (3/23/18 11:10 PM)
 
-  public int getDig_P6() {
+  private int getDig_P6() {
     return dig_P6;
   }
 
-  public void setDig_P6(int dig_P6) {
-    this.dig_P6 = dig_P6;
-  }
+// --Commented out by Inspection START (3/23/18 11:10 PM):
+//  public void setDig_P6(int dig_P6) {
+//    this.dig_P6 = dig_P6;
+//  }
+// --Commented out by Inspection STOP (3/23/18 11:10 PM)
 
-  public int getDig_P7() {
+  private int getDig_P7() {
     return dig_P7;
   }
 
-  public void setDig_P7(int dig_P7) {
-    this.dig_P7 = dig_P7;
-  }
+// --Commented out by Inspection START (3/23/18 11:10 PM):
+//  public void setDig_P7(int dig_P7) {
+//    this.dig_P7 = dig_P7;
+//  }
+// --Commented out by Inspection STOP (3/23/18 11:10 PM)
 
-  public int getDig_P8() {
+  private int getDig_P8() {
     return dig_P8;
   }
 
-  public void setDig_P8(int dig_P8) {
-    this.dig_P8 = dig_P8;
-  }
+// --Commented out by Inspection START (3/23/18 11:10 PM):
+//  public void setDig_P8(int dig_P8) {
+//    this.dig_P8 = dig_P8;
+//  }
+// --Commented out by Inspection STOP (3/23/18 11:10 PM)
 
-  public int getDig_P9() {
+  private int getDig_P9() {
     return dig_P9;
   }
 
-  public void setDig_P9(int dig_P9) {
-    this.dig_P9 = dig_P9;
-  }
+// --Commented out by Inspection START (3/23/18 11:10 PM):
+//  public void setDig_P9(int dig_P9) {
+//    this.dig_P9 = dig_P9;
+//  }
+// --Commented out by Inspection STOP (3/23/18 11:10 PM)
 
-  public void leggiDalBMP280() throws IOException {
-    // Read 8 bytes of data from address 0xF7(247)
-    // pressure msb1, pressure msb, pressure lsb, temp msb1, temp msb, temp lsb, humidity lsb, humidity msb
-    byte[] data = new byte[8];
-    this.getDevice().read(0xF7, data, 0, 8);
-
-    // Convert pressure and temperature data to 19-bits
-    long adc_p = (((long) (data[0] & 0xFF) * 65536) + ((long) (data[1] & 0xFF) * 256) + (long) (data[2] & 0xF0)) / 16;
-    long adc_t = (((long) (data[3] & 0xFF) * 65536) + ((long) (data[4] & 0xFF) * 256) + (long) (data[5] & 0xF0)) / 16;
-
-    // Temperature offset calculations
-    double var1 = (((double) adc_t) / 16384.0 - ((double) this.getDig_T1()) / 1024.0) * ((double) this.getDig_T2());
-    double var2 = ((((double) adc_t) / 131072.0 - ((double) this.getDig_T1()) / 8192.0) *
-            (((double) adc_t) / 131072.0 - ((double) this.getDig_T1()) / 8192.0)) * ((double) this.getDig_T3());
-    double t_fine = (long) (var1 + var2);
-    double cTemp = (var1 + var2) / 5120.0;
-    double fTemp = cTemp * 1.8 + 32;
-
-    // Pressure offset calculations
-    var1 = ((double) t_fine / 2.0) - 64000.0;
-    var2 = var1 * var1 * ((double) this.getDig_P6()) / 32768.0;
-    var2 = var2 + var1 * ((double) this.getDig_P5()) * 2.0;
-    var2 = (var2 / 4.0) + (((double) this.getDig_P4()) * 65536.0);
-    var1 = (((double) this.getDig_P3()) * var1 * var1 / 524288.0 + ((double) this.getDig_P2()) * var1) / 524288.0;
-    var1 = (1.0 + var1 / 32768.0) * ((double) this.getDig_P1());
-    double p = 1048576.0 - (double) adc_p;
-    p = (p - (var2 / 4096.0)) * 6250.0 / var1;
-    var1 = ((double) this.getDig_P9()) * p * p / 2147483648.0;
-    var2 = p * ((double) this.getDig_P8()) / 32768.0;
-    double pressure = (p + (var1 + var2 + ((double) this.getDig_P7())) / 16.0) / 100;
-
-//      // Output data to screen
-//      System.out.printf("Pressure : %.2f hPa %n", pressure);
-//      System.out.printf("Temperature in Celsius : %.2f C %n", cTemp);
-//      System.out.printf("Temperature in Fahrenheit : %.2f F %n", fTemp);
-
-    System.out.println( pressure + "   -   " + cTemp + " - " + fTemp);
-
-  }
+// --Commented out by Inspection START (3/23/18 11:10 PM):
+//  public void leggiDalBMP280() throws IOException {
+//    // Read 8 bytes of data from address 0xF7(247)
+//    // pressure msb1, pressure msb, pressure lsb, temp msb1, temp msb, temp lsb, humidity lsb, humidity msb
+//    byte[] data = new byte[8];
+//    this.getDevice().read(0xF7, data, 0, 8);
+//
+//    // Convert pressure and temperature data to 19-bits
+//    long adc_p = (((long) (data[0] & 0xFF) * 65536) + ((long) (data[1] & 0xFF) * 256) + (long) (data[2] & 0xF0)) / 16;
+//    long adc_t = (((long) (data[3] & 0xFF) * 65536) + ((long) (data[4] & 0xFF) * 256) + (long) (data[5] & 0xF0)) / 16;
+//
+//    // Temperature offset calculations
+//    double var1 = (((double) adc_t) / 16384.0 - ((double) this.getDig_T1()) / 1024.0) * ((double) this.getDig_T2());
+//    double var2 = ((((double) adc_t) / 131072.0 - ((double) this.getDig_T1()) / 8192.0) *
+//            (((double) adc_t) / 131072.0 - ((double) this.getDig_T1()) / 8192.0)) * ((double) this.getDig_T3());
+//    double t_fine = (long) (var1 + var2);
+//    double cTemp = (var1 + var2) / 5120.0;
+//    double fTemp = cTemp * 1.8 + 32;
+//
+//    // Pressure offset calculations
+//    var1 = (t_fine / 2.0) - 64000.0;
+//    var2 = var1 * var1 * ((double) this.getDig_P6()) / 32768.0;
+//    var2 = var2 + var1 * ((double) this.getDig_P5()) * 2.0;
+//    var2 = (var2 / 4.0) + (((double) this.getDig_P4()) * 65536.0);
+//    var1 = (((double) this.getDig_P3()) * var1 * var1 / 524288.0 + ((double) this.getDig_P2()) * var1) / 524288.0;
+//    var1 = (1.0 + var1 / 32768.0) * ((double) this.getDig_P1());
+//    double p = 1048576.0 - (double) adc_p;
+//    p = (p - (var2 / 4096.0)) * 6250.0 / var1;
+//    var1 = ((double) this.getDig_P9()) * p * p / 2147483648.0;
+//    var2 = p * ((double) this.getDig_P8()) / 32768.0;
+//    double pressure = (p + (var1 + var2 + ((double) this.getDig_P7())) / 16.0) / 100;
+//
+////      // Output data to screen
+////      System.out.printf("Pressure : %.2f hPa %n", pressure);
+////      System.out.printf("Temperature in Celsius : %.2f C %n", cTemp);
+////      System.out.printf("Temperature in Fahrenheit : %.2f F %n", fTemp);
+//
+//    System.out.println( pressure + "   -   " + cTemp + " - " + fTemp);
+//
+//  }
+// --Commented out by Inspection STOP (3/23/18 11:10 PM)
 
 
   public double getAltitudeInMeter() throws Exception {
@@ -253,7 +281,7 @@ public class BMP280HW implements BMP280 {
     double fTemp = cTemp * 1.8 + 32;
 
     // Pressure offset calculations
-    var1 = ((double) t_fine / 2.0) - 64000.0;
+    var1 = (t_fine / 2.0) - 64000.0;
     var2 = var1 * var1 * ((double) this.getDig_P6()) / 32768.0;
     var2 = var2 + var1 * ((double) this.getDig_P5()) * 2.0;
     var2 = (var2 / 4.0) + (((double) this.getDig_P4()) * 65536.0);
@@ -265,14 +293,15 @@ public class BMP280HW implements BMP280 {
     var2 = p * ((double) this.getDig_P8()) / 32768.0;
     double pressure = (p + (var1 + var2 + ((double) this.getDig_P7())) / 16.0) / 100;
 
-//      // Output data to screen
+//      Output data to screen
 //      System.out.printf("Pressure : %.2f hPa %n", pressure);
 //      System.out.printf("Temperature in Celsius : %.2f C %n", cTemp);
 //      System.out.printf("Temperature in Fahrenheit : %.2f F %n", fTemp);
+//      System.out.println( pressure + "   -   " + cTemp + " - " + fTemp + " - " + altitude);
+    return fromHpaToMeter(pressure);
+  }
 
-    double altitude = FromHpaToMeter.fromHpaToMeter(pressure,fTemp);
-    //System.out.println( pressure + "   -   " + cTemp + " - " + fTemp + " - " + altitude);
-    return altitude;
-
+  private double fromHpaToMeter(double hpa){
+    return  44330 * (1.0 - Math.pow( hpa / this.seaLevel_hPa , 0.1903));
   }
 }

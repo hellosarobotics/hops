@@ -14,7 +14,7 @@ public class Main {
   public static void main(String... args) {
     Logger log = Logger.getLogger(Main.class);
     try {
-      if (args.length >= 3) {
+      if (args.length >= 4) {
 
         BMP280 bmp280;
         Action action;
@@ -23,21 +23,24 @@ public class Main {
          * detachAltitude: Altitudine di distacco della sonda
          * openParachuteAltitude: Altitudine di apertura paracadute
          * cicleTime: velocita' del ciclo di lettura dal BMP280
+         * seaLevel_hPa: Pressione atmosferica al livello del mare.
          */
         int actualAltitude, detachAltitude, openParachuteAltitude, cicleTime;
+        double seaLevel_hPa;
         boolean continua = true;
 
         int indiceArgomenti = 0;
         if (args[indiceArgomenti].equalsIgnoreCase("sim")) {
-          bmp280 = new BMP280Simulator();
+          seaLevel_hPa = Double.parseDouble(args[++indiceArgomenti]);
+          bmp280 = new BMP280Simulator(seaLevel_hPa);
           actualAltitude = (int) bmp280.getAltitudeInMeter();
           detachAltitude = actualAltitude + Integer.parseInt(args[++indiceArgomenti]);
           openParachuteAltitude = actualAltitude + Integer.parseInt(args[++indiceArgomenti]);
           action = new ActionSimulator(detachAltitude, openParachuteAltitude);
           cicleTime = Integer.parseInt(args[++indiceArgomenti]);
-          //action = new ActionHW(detachAltitude, openParachuteAltitude);
         } else {
-          bmp280 = new BMP280HW();
+          seaLevel_hPa = Double.parseDouble(args[indiceArgomenti++]);
+          bmp280 = new BMP280HW( seaLevel_hPa );
           actualAltitude = (int) bmp280.getAltitudeInMeter();
           // Trick... spesso il bmp280 all'accensione da un errore troppo grande in termini di misura della pressione il seguente if e' un espediente per evitarlo. 
           // Ovviamente se allo start ci troviamo ad una altitudine > 1000 metri attendiamo comunque 5 secondi e riprendiamo l'altitudine per sicurezza. 
@@ -58,23 +61,20 @@ public class Main {
 
           while (continua) {
             try {
-              int altit = (int) bmp280.getAltitudeInMeter();
-              if (altit != 3733) { //Hardcoded controllo su errore altitudine. Forse da imputare al BMP280HW un po' vecchiotto.
-                ac.settaAltitudineAttuale(altit);
-                if (ac.isGoingUp()) {
+                ac.settaAltitudineAttuale( (int) bmp280.getAltitudeInMeter() );
+                if ( ac.isGoingUp() ) {
                   log.info("\t  UP\t\t" + ac.print());
                   if (action.canDetach(ac.getActualAltitude()) && action.getDeveAncoraScoppiare()) {
                     action.setDeveAncoraScoppiare(false);
                     action.sganciaSonda();
                   }
-                } else if (ac.isGoingDown()) {
+                } else if ( ac.isGoingDown() ) {
                   log.info("\t DOWN\t\t" + ac.print());
                   if (action.canOpenParachute(ac.getActualAltitude())) {
                     action.setIlParacaduteSiDeveAncoraAprire(false);
                     action.apriParacadute();
                   }
                 }
-              }
               Thread.sleep(cicleTime);
             }catch (Exception e){
               continua = false;
@@ -96,7 +96,7 @@ public class Main {
     }
   }
 
-  private static Object messaggioParametri() {
-    return "I parametri da dare in pasto sono, altitudine per il detach: 100; altitudine per aprire il paracadute:70; tempo di ciclo in millisecondi: 1000 --- \nManca qualcosa: esempio di esecuzione \njava -jar hops.jar 100 70 1000\njava -jar hops.jar sim 100 70 1000\n\nOppure se abbiamo problemi con la libreria pi4j aggiungere il seguente parametro alla VM: java -Dpi4j.linking=dynamic -jar.....blablabla ";
+  private static String messaggioParametri() {
+    return "I parametri da dare in pasto sono, pressione atmosferica al livello del mare di oggi: 1000.6 hPa; altitudine per il detach: (current + 100metri) 100; altitudine per aprire il paracadute: (current + 70 metri)70; tempo di ciclo in millisecondi: 1000 --- \nManca qualcosa: esempio di esecuzione \njava -jar hops.jar 100 70 1000\njava -jar hops.jar sim 100 70 1000\n\nOppure se abbiamo problemi con la libreria pi4j aggiungere il seguente parametro alla VM: java -Dpi4j.linking=dynamic -jar.....blablabla ";
   }
 }
