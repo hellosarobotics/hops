@@ -33,6 +33,11 @@ public class Main {
         } else {
           bmp280 = new BMP280HW();
           actualAltitude = (int) bmp280.getAltitudeInMeter();
+          //Trick... spesso il bmp280 all'accensione da un errore troppo grande in termini di misura della pressione il seguente if e' un espediente per evitarlo
+          if(actualAltitude>1000) { //HARDCODED ma per i test va bene cosi'
+            Thread.sleep(5000);
+            actualAltitude = (int) bmp280.getAltitudeInMeter();
+          }
           detachAltitude = actualAltitude + Integer.parseInt(args[indiceArgomenti++]);
           openParachuteAltitude = actualAltitude + Integer.parseInt(args[indiceArgomenti++]);
           action = new ActionHW(detachAltitude, openParachuteAltitude);
@@ -42,37 +47,31 @@ public class Main {
         log.info("Parametri allo start");
         log.info("Start Altitude: " + actualAltitude + "m. DETACH at: " + detachAltitude + "m. OpenParachute at: " + openParachuteAltitude + "m.");
 
-
         final AltitudeController ac = new AltitudeController(actualAltitude);
-
 
         while (true) {
           int altit = (int) bmp280.getAltitudeInMeter();
-          if (altit != 3733) { //Hardcoded controllo su errore altitudine. Forse da imputare al BMP280HW un po' vecchiotto.
-            ac.settaAltitudineAttuale(altit);
-            if (ac.isGoingUp()) {
-              log.info("\t  UP\t\t" + ac.print());
-              if (action.canDetach(ac.getActualAltitude()) && action.getDeveAncoraScoppiare()) {
-                action.setDeveAncoraScoppiare(false);
-                action.sganciaSonda();
+            if (altit != 3733) { //Hardcoded controllo su errore altitudine. Forse da imputare al BMP280HW un po' vecchiotto.
+              ac.settaAltitudineAttuale(altit);
+              if (ac.isGoingUp()) {
+                log.info("\t  UP\t\t" + ac.print());
+                if (action.canDetach(ac.getActualAltitude()) && action.getDeveAncoraScoppiare()) {
+                  action.setDeveAncoraScoppiare(false);
+                  action.sganciaSonda();
+                }
+              } else if (ac.isGoingDown()) {
+                log.info("\t DOWN\t\t" + ac.print());
+                if (action.canOpenParachute(ac.getActualAltitude())) {
+                  action.setIlParacaduteSiDeveAncoraAprire(false);
+                  action.apriParacadute();
+                }
               }
-            } else if (ac.isGoingDown()) {
-              log.info("\t DOWN\t\t" + ac.print());
-              if (action.canOpenParachute(ac.getActualAltitude())) {
-                action.setIlParacaduteSiDeveAncoraAprire(false);
-                action.apriParacadute();
-              }
-            }
-//          else {
-//            //Qui il sistema è stazionario
-//          }
-            Thread.sleep(tempoCiclo);
           }
+          Thread.sleep(tempoCiclo);
         }
 
       } else {
         log.info(messaggioParametri());
-        //System.exit(0);
       }
     }catch (Exception e){
       e.printStackTrace();
