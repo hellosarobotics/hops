@@ -30,10 +30,10 @@ public class AltitudeController {
 
 
   public void settaAltitudineAttuale(int _actualAltitude) {
-    if (_actualAltitude != 3733) { //Hardcoded controllo su errore altitudine. Forse da imputare al BMP280HW un po' vecchiotto.
+    //if (_actualAltitude != 3733) { //Hardcoded controllo su errore altitudine. Forse da imputare al BMP280HW un po' vecchiotto. Probabilmente questo errore era causato dal vecchio calcolo dell'altitudine
       this.previousAltitude = this.actualAltitude;
       this.actualAltitude = _actualAltitude;
-    }
+    //}
   }
 
   public Boolean isGoingUp() {
