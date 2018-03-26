@@ -48,10 +48,13 @@ public class Main {
             Thread.sleep(5000);
             actualAltitude = (int) bmp280.getAltitudeInMeter();
           }
-          detachAltitude = actualAltitude + Integer.parseInt(args[indiceArgomenti++]);
-          openParachuteAltitude = actualAltitude + Integer.parseInt(args[indiceArgomenti++]);
-          action = new ActionHW(detachAltitude, openParachuteAltitude);
-          cicleTime = Integer.parseInt(args[indiceArgomenti]);
+          int detachAltitudeParameter = Integer.parseInt(args[indiceArgomenti++]);
+          int openParachuteAltitudeParameter = Integer.parseInt(args[indiceArgomenti++]);
+          int cicleTimeParameter = Integer.parseInt(args[indiceArgomenti]);
+          detachAltitude = actualAltitude + detachAltitudeParameter;
+          openParachuteAltitude = actualAltitude + openParachuteAltitudeParameter;
+          cicleTime = cicleTimeParameter;
+          action = new ActionHW(detachAltitude, openParachuteAltitude,bmp280,detachAltitudeParameter,openParachuteAltitudeParameter,cicleTimeParameter);
         }
 
         log.info("Parametri allo start");

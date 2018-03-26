@@ -5,10 +5,10 @@ import com.sarobotics.utils.InvalidOpenParachuteAltitude;
 
 public abstract class Action {
 
-  private int detachAltitude;
-  private int openParachuteAltitude;
-  private boolean deveAncoraScoppiare;
-  private boolean ilParacaduteSiDeveAncoraAprire;
+  public int detachAltitude;
+  public int openParachuteAltitude;
+  public boolean deveAncoraScoppiare;
+  public boolean ilParacaduteSiDeveAncoraAprire;
 
   Action(int _detachAltitude, int _openParachuteAltitude) throws InvalidOpenParachuteAltitude {
     /*
