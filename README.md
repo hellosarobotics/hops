@@ -16,9 +16,13 @@ Hardware
 Come hardware abbiamo scelto il BMP280 un sensore in grado di misurare la pressione atmosferica e la temperatura.
 
 Collegamento
+
 Vin –> Pin 2 (5V)
+
 GND –> Pin 6 (GND)
+
 SCK –> Pin 5 (I2C1_SCL)
+
 SDI –> Pin 3 (I2C1_SDA)
 
-Dovete essere sicuri che i seguenti pin del BMP280 siano scollegati: 3V0, SDO, CS
+Dovete essere sicuri che i seguenti pin del BMP280 NON siano collegati: 3V0, SDO, CS
