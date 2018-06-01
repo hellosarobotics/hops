@@ -3,8 +3,10 @@ package com.sarobotics.actions;
 import com.pi4j.io.gpio.*;
 import com.pi4j.io.gpio.event.GpioPinDigitalStateChangeEvent;
 import com.pi4j.io.gpio.event.GpioPinListenerDigital;
+import com.pi4j.io.i2c.I2CFactory;
 import com.sarobotics.bmp280.BMP280;
 import com.sarobotics.utils.InvalidOpenParachuteAltitude;
+import com.sarobotics.utils.PCA9685;
 import org.apache.log4j.Logger;
 
 public class ActionHW extends Action {
@@ -17,6 +19,21 @@ public class ActionHW extends Action {
   private BMP280 bmp280;
   private int detachAltitudeParameter,openParachuteAltitudeParameter,cicleTimeParameter;
 
+  private int servoMin = 122; // 130;   // was 150. Min pulse length out of 4096
+  private int servoMax = 615;   // was 600. Max pulse length out of 4096
+  private final int DROP_SERVO_CHANNEL = 0;
+
+  /* Inizializzazione Servo board*/
+  private PCA9685 servoBoard;
+  {
+    try {
+      servoBoard = new PCA9685();
+    } catch (I2CFactory.UnsupportedBusNumberException e) {
+      e.printStackTrace();
+    }
+  }
+
+
   public ActionHW(int _detachAltitude, int _openParachuteAltitude, BMP280 _bmp280, int _detachAltitudeParameter, int _openParachuteAltitudeParameter, int _cicleTimeParameter) throws InvalidOpenParachuteAltitude {
     super(_detachAltitude, _openParachuteAltitude);
 
@@ -24,6 +41,9 @@ public class ActionHW extends Action {
     detachAltitudeParameter = _detachAltitudeParameter;
     openParachuteAltitudeParameter = _openParachuteAltitudeParameter;
     cicleTimeParameter = _cicleTimeParameter;
+
+    /* Inizializzazione della servo board */
+    servoBoard.setPWMFreq(60); // Set frequency to 60 Hz
 
     // create gpio controller
     GpioController gpio = GpioFactory.getInstance();
@@ -49,7 +69,7 @@ public class ActionHW extends Action {
 
   }
 
-  public void reset(){
+  private void reset(){
     log.info("********* RESET *********");
     detach.low();
     deployParachute.low();
@@ -78,6 +98,8 @@ public class ActionHW extends Action {
     //Accendiamo il primo led
     log.info("********* DETACH *********");
     detach.high();
+    servoBoard.inizializzaServoPerIlDrop(servoBoard,DROP_SERVO_CHANNEL,servoMin,servoMax);
+    servoBoard.releasePayLoad(servoBoard,DROP_SERVO_CHANNEL,servoMin,servoMax);
   }
 
   public void apriParacadute() {
