@@ -19,9 +19,10 @@ public class ActionHW extends Action {
   private BMP280 bmp280;
   private int detachAltitudeParameter,openParachuteAltitudeParameter,cicleTimeParameter;
 
-  private int servoMin = 122; // 130;   // was 150. Min pulse length out of 4096
-  private int servoMax = 615;   // was 600. Max pulse length out of 4096
+  private int servoMin = 200; // 130;   // was 150. Min pulse length out of 4096
+  private int servoMax = 600;   // was 600. Max pulse length out of 4096
   private final int DROP_SERVO_CHANNEL = 0;
+  private final int PARACHUTE_SERVO_CHANNEL = 1;
 
   /* Inizializzazione Servo board*/
   private PCA9685 servoBoard;
@@ -82,6 +83,7 @@ public class ActionHW extends Action {
       openParachuteAltitude = currentAltitude + openParachuteAltitudeParameter;
       deveAncoraScoppiare = true;
       ilParacaduteSiDeveAncoraAprire = true;
+      servoBoard.deployParachute( PARACHUTE_SERVO_CHANNEL, servoMin );
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -98,8 +100,8 @@ public class ActionHW extends Action {
     //Accendiamo il primo led
     log.info("********* DETACH *********");
     detach.high();
-    servoBoard.inizializzaServoPerIlDrop(servoBoard,DROP_SERVO_CHANNEL,servoMin,servoMax);
-    servoBoard.releasePayLoad(servoBoard,DROP_SERVO_CHANNEL,servoMin,servoMax);
+    servoBoard.inizializzaServoPerIlDrop(DROP_SERVO_CHANNEL,servoMin,servoMax);
+    servoBoard.releasePayLoad(DROP_SERVO_CHANNEL,servoMin,servoMax);
   }
 
   public void apriParacadute() {
@@ -107,5 +109,6 @@ public class ActionHW extends Action {
     //Accendiamo il secondo led
     log.info("********* OPEN PARACHUTE *********");
     deployParachute.high();
+    servoBoard.deployParachute(PARACHUTE_SERVO_CHANNEL, servoMax );
   }
 }

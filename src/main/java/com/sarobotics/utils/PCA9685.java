@@ -225,7 +225,7 @@ public class PCA9685 {
 //    }
   }
 
-  public void releasePayLoad(PCA9685 servoBoard, int DROP_SERVO_CHANNEL, int servoMin, int servoMax) {
+  public void releasePayLoad( int DROP_SERVO_CHANNEL, int servoMin, int servoMax  ) {
 //    servoBoard.setPWM(DROP_SERVO_CHANNEL, 0, servoMin);
 //    delay(4000);
 
@@ -234,7 +234,7 @@ public class PCA9685 {
 
     for (int i = servoMax; i >= servoMin; i--) {
         //System.out.println("i=" + i);
-        servoBoard.setPWM(DROP_SERVO_CHANNEL, 0, i);
+        this.setPWM(DROP_SERVO_CHANNEL, 0, i);
         //delay(1);
       }
 
@@ -242,7 +242,7 @@ public class PCA9685 {
     System.out.println(uscita-ingresso + " Millisecondi");
   }
 
-  public void inizializzaServoPerIlDrop(PCA9685 servoBoard, int DROP_SERVO_CHANNEL, int servoMin, int servoMax) {
+  public void inizializzaServoPerIlDrop( int DROP_SERVO_CHANNEL, int servoMin, int servoMax ) {
 //    servoBoard.setPWM(DROP_SERVO_CHANNEL, 0, servoMin);
 //    delay(4000);
 //    servoBoard.setPWM(DROP_SERVO_CHANNEL, 0, servoMax);
@@ -250,9 +250,13 @@ public class PCA9685 {
 
       for (int i = servoMin; i <= servoMax; i++) {
         //System.out.println("i=" + i);
-        servoBoard.setPWM(DROP_SERVO_CHANNEL, 0, i);
+        this.setPWM(DROP_SERVO_CHANNEL, 0, i);
         //delay(1);
       }
+  }
+
+  public void deployParachute(int PARACHUTE_SERVO_CHANNEL, int servoPulse) {
+    this.setPWM(PARACHUTE_SERVO_CHANNEL, 0, servoPulse);
   }
 
 //  public static void main__(String... args) {
