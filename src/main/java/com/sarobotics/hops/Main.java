@@ -1,5 +1,7 @@
 package com.sarobotics.hops;
 
+import com.pi4j.Pi4J;
+import com.pi4j.context.Context;
 import com.sarobotics.actions.Action;
 import com.sarobotics.actions.ActionHW;
 import com.sarobotics.actions.ActionSimulator;
@@ -7,7 +9,7 @@ import com.sarobotics.bmp280.BMP280HW;
 import com.sarobotics.bmp280.BMP280;
 import com.sarobotics.bmp280.BMP280Simulator;
 import com.sarobotics.utils.InvalidOpenParachuteAltitude;
-import com.sarobotics.utils.PCA9685;
+//import com.sarobotics.utils.PCA9685;
 import org.apache.log4j.Logger;
 
 public class Main {
@@ -16,6 +18,8 @@ public class Main {
     Logger log = Logger.getLogger(Main.class);
     try {
       if (args.length >= 4) {
+    	  
+    	  Context pi4j = Pi4J.newAutoContext();
 
         BMP280 bmp280;
         Action action;
@@ -43,7 +47,7 @@ public class Main {
           cicleTime = Integer.parseInt(args[++indiceArgomenti]);
         } else {
           seaLevel_hPa = Double.parseDouble(args[indiceArgomenti++]);
-          bmp280 = new BMP280HW( seaLevel_hPa );
+          bmp280 = new BMP280HW(pi4j, seaLevel_hPa );
           actualAltitude = (int) bmp280.getAltitudeInMeter();
           // Trick... spesso il bmp280 all'accensione da un errore troppo grande in termini di misura della pressione il seguente if e' un espediente per evitarlo. 
           // Ovviamente se allo start ci troviamo ad una altitudine > 1000 metri attendiamo comunque 5 secondi e riprendiamo l'altitudine per sicurezza. 

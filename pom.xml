@@ -70,16 +70,26 @@
             <version>4.12</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>com.pi4j</groupId>
-            <artifactId>pi4j-core</artifactId>
-            <version>1.2</version>
-        </dependency>
-        <dependency>
-            <groupId>com.pi4j</groupId>
-            <artifactId>pi4j-device</artifactId>
-            <version>1.1</version>
-        </dependency>
+
+	 	<!-- Core Pi4J v2 -->
+	    <dependency>
+	        <groupId>com.pi4j</groupId>
+	        <artifactId>pi4j-core</artifactId>
+	        <version>2.3.0</version>
+	    </dependency>
+	
+	    <!-- Per usare I2C -->
+	    <dependency>
+	        <groupId>com.pi4j</groupId>
+	        <artifactId>pi4j-plugin-raspberrypi</artifactId>
+	        <version>2.3.0</version>
+	    </dependency>
+	
+	    <dependency>
+	        <groupId>com.pi4j</groupId>
+	        <artifactId>pi4j-plugin-pigpio</artifactId>
+	        <version>2.3.0</version>
+	    </dependency>
 
 		<!-- https://mvnrepository.com/artifact/log4j/log4j -->
         <dependency>
