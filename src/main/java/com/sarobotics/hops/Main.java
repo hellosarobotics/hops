@@ -10,12 +10,13 @@ import com.sarobotics.bmp280.BMP280;
 import com.sarobotics.bmp280.BMP280Simulator;
 import com.sarobotics.utils.InvalidOpenParachuteAltitude;
 //import com.sarobotics.utils.PCA9685;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Main {
+	private static final Logger log = LoggerFactory.getLogger(Main.class);
 
   public static void main(String... args) {
-    Logger log = Logger.getLogger(Main.class);
     try {
       if (args.length >= 4) {
     	  

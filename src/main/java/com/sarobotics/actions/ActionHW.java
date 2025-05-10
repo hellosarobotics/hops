@@ -8,11 +8,12 @@ import com.pi4j.io.i2c.I2CConfig;
 import com.sarobotics.bmp280.BMP280;
 import com.sarobotics.utils.InvalidOpenParachuteAltitude;
 import com.sarobotics.utils.PCA9685;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ActionHW extends Action {
 
-  private final Logger log = Logger.getLogger(ActionHW.class);
+  private static final Logger log = LoggerFactory.getLogger(ActionHW.class);
 
   private DigitalOutput detach, deployParachute;
   private DigitalInput myButton;
